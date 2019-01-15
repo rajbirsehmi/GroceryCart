@@ -20,6 +20,10 @@ public class Grocery {
         return list.get(position);
     }
 
+    public static void addItemAtTop(GroceryItem groceryItem) {
+        list.add(0, groceryItem);
+    }
+
     public static void addItem(GroceryItem groceryItem) {
         list.add(groceryItem);
     }

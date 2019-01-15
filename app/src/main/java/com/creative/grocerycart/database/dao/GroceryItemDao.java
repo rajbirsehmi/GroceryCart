@@ -16,7 +16,7 @@ public interface GroceryItemDao {
     long addItem(GroceryItem item);
 
     @Delete
-    long deleteItem(GroceryItem item);
+    int deleteItem(GroceryItem item);
 
     @Query("SELECT item_id, item_name, is_checked " +
             "FROM grocery_list " +

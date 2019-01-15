@@ -1,6 +1,5 @@
 package com.creative.grocerycart.model;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import com.creative.grocerycart.adapter.GroceryAdapter;
@@ -13,11 +12,9 @@ import java.util.List;
 
 public class GroceryListLoaderImpl {
 
-    private Context context;
     private GroceryListLoader groceryListLoader;
 
-    public GroceryListLoaderImpl(Context context, GroceryListLoader groceryList) {
-        this.context = context;
+    public GroceryListLoaderImpl(GroceryListLoader groceryList) {
         this.groceryListLoader = groceryList;
     }
 

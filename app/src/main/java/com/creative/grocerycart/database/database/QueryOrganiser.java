@@ -11,5 +11,11 @@ public class QueryOrganiser {
     }
 
 
+    public static int addGroceryItem(GroceryItem groceryItem) {
+        return (int) GroceryDatabase.getInstance().groceryItemDao().addItem(groceryItem);
+    }
 
+    public static int removeGroceryItem(GroceryItem item) {
+        return GroceryDatabase.getInstance().groceryItemDao().deleteItem(item);
+    }
 }
