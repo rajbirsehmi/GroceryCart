@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Grocery Cart</string>
+    <string name="action_settings">Settings</string>
+    <string name="placeholder_grocery_item_name">Grocery Item Name</string>
+</resources>
