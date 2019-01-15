@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.creative.grocerycart.R;
 import com.creative.grocerycart.adapter.GroceryAdapter;
 import com.creative.grocerycart.database.database.GroceryDatabase;
+import com.creative.grocerycart.list.Grocery;
 import com.creative.grocerycart.model.GroceryItemAdderImpl;
 import com.creative.grocerycart.model.GroceryItemRemoverImpl;
 import com.creative.grocerycart.model.GroceryListLoaderImpl;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
         setSupportActionBar(toolbar);
 
         GroceryDatabase.createInstance(getBaseContext());
+        Grocery.createList();
 
         groceryListLoader = new GroceryListLoaderImpl(this);
         groceryItemAdder = new GroceryItemAdderImpl(this);
@@ -105,9 +107,6 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 

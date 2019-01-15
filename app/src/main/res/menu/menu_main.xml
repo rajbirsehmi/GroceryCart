@@ -1,10 +1,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.creative.grocerycart.view.MainActivity">
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mi_mark_all_as_done_at_exit"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:title="@string/mark_all_done_at_exit" />
+        <item
+            android:id="@+id/mi_remove_all_on_exit"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:title="@string/remove_all_on_exit" />
+
+        <item
+            android:id="@+id/mi_no_changes_on_exit"
+            android:checked="true"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:title="@string/no_changes_on_exit" />
+    </group>
 </menu>
