@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
                 if (position == -1)
                     return;
                 groceryAdapter.notifyItemChanged(position);
-//                groceryAdapter.notifyDataSetChanged();
             }
         }
     };
