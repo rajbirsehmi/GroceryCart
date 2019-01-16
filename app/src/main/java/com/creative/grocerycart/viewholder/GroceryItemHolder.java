@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.CheckBox;
 
 import com.creative.grocerycart.R;
+import com.creative.grocerycart.listener.GroceryStatusChangeListener;
 import com.creative.grocerycart.populators.GroceryItem;
 
 public class GroceryItemHolder extends RecyclerView.ViewHolder {
@@ -27,4 +28,7 @@ public class GroceryItemHolder extends RecyclerView.ViewHolder {
             cbItem.setBackgroundColor(itemView.getContext().getResources().getColor(android.R.color.white));
     }
 
+    public void setGroceryStatusListener(GroceryStatusChangeListener changeListener) {
+        cbItem.setOnCheckedChangeListener(changeListener);
+    }
 }

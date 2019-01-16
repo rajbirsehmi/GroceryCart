@@ -1,6 +1,10 @@
 package com.creative.grocerycart.view;
 
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +27,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
     private String itemName;
     private int swipedIndex = -1;
 
-    private ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+    private ItemTouchHelper.SimpleCallback swipeToRemoveGestureCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return true;
@@ -52,6 +57,19 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             swipedIndex = viewHolder.getAdapterPosition();
             groceryItemRemover.removeItem();
+        }
+    };
+
+    private BroadcastReceiver receiverUpdateStatus = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("update_status")) {
+                int position = intent.getIntExtra("position", -1);
+                if (position == -1)
+                    return;
+                groceryAdapter.notifyItemChanged(position);
+//                groceryAdapter.notifyDataSetChanged();
+            }
         }
     };
 
@@ -94,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
         rvGroceryList = findViewById(R.id.rv_grocery_list);
         rvGroceryList.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         rvGroceryList.setItemAnimator(new DefaultItemAnimator());
-        new ItemTouchHelper(simpleItemTouchCallback).attachToRecyclerView(rvGroceryList);
+        new ItemTouchHelper(swipeToRemoveGestureCallback).attachToRecyclerView(rvGroceryList);
         groceryListLoader.loadGroceryList();
     }
 
@@ -157,5 +175,17 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
     public void removeSwipedItem(int swipedIndex, String message) {
         groceryAdapter.notifyItemRemoved(swipedIndex);
         Snackbar.make(rvGroceryList, message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(getBaseContext()).registerReceiver(receiverUpdateStatus, new IntentFilter("update_status"));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getBaseContext()).unregisterReceiver(receiverUpdateStatus);
     }
 }

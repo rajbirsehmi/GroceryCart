@@ -10,12 +10,15 @@ public class QueryOrganiser {
         return GroceryDatabase.getInstance().groceryItemDao().getItems();
     }
 
-
     public static int addGroceryItem(GroceryItem groceryItem) {
         return (int) GroceryDatabase.getInstance().groceryItemDao().addItem(groceryItem);
     }
 
     public static int removeGroceryItem(GroceryItem item) {
         return GroceryDatabase.getInstance().groceryItemDao().deleteItem(item);
+    }
+
+    public static int updateStatus(GroceryItem mutatedItem) {
+        return GroceryDatabase.getInstance().groceryItemDao().updateStatus(mutatedItem);
     }
 }

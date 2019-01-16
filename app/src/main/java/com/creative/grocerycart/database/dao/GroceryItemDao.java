@@ -8,6 +8,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 @Dao
 public interface GroceryItemDao {
@@ -23,4 +24,7 @@ public interface GroceryItemDao {
             "ORDER BY item_id " +
             "DESC")
     List<GroceryItem> getItems();
+
+    @Update
+    int updateStatus(GroceryItem groceryItem);
 }
