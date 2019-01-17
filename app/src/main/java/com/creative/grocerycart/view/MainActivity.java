@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -19,9 +20,11 @@ import com.creative.grocerycart.list.Grocery;
 import com.creative.grocerycart.model.GroceryItemAdderImpl;
 import com.creative.grocerycart.model.GroceryItemRemoverImpl;
 import com.creative.grocerycart.model.GroceryListLoaderImpl;
+import com.creative.grocerycart.postprocessing.PostProcessing;
 import com.creative.grocerycart.presenter.GroceryItemAdder;
 import com.creative.grocerycart.presenter.GroceryItemRemover;
 import com.creative.grocerycart.presenter.GroceryListLoader;
+import com.creative.grocerycart.utils.Constants;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             swipedIndex = viewHolder.getAdapterPosition();
             groceryItemRemover.removeItem();
+            PostProcessing.handleDataPositions(groceryAdapter);
         }
     };
 
@@ -152,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
     public void renderNewItem() {
         groceryAdapter.notifyItemInserted(0);
         dialogAddItem.dismiss();
+        PostProcessing.handleDataPositions(groceryAdapter);
     }
 
     @Override

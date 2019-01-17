@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.creative.grocerycart.R;
 import com.creative.grocerycart.list.Grocery;
-import com.creative.grocerycart.listener.GroceryStatusChangeListener;
+import com.creative.grocerycart.listener.GroceryStatusUpdater;
 import com.creative.grocerycart.viewholder.GroceryItemHolder;
 
 public class GroceryAdapter extends RecyclerView.Adapter<GroceryItemHolder> {
@@ -23,7 +23,7 @@ public class GroceryAdapter extends RecyclerView.Adapter<GroceryItemHolder> {
     @Override
     public void onBindViewHolder(@NonNull GroceryItemHolder groceryItemHolder, int position) {
         groceryItemHolder.onBind(Grocery.getItem(position));
-        groceryItemHolder.setGroceryStatusListener(new GroceryStatusChangeListener(position));
+        groceryItemHolder.setGroceryStatusUpdateListener(new GroceryStatusUpdater(position));
     }
 
     @Override

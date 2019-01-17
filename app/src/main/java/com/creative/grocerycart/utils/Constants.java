@@ -5,4 +5,6 @@ public class Constants {
 
     public static final int SUCCESS_CODE = 1;
     public static final int ERROR_CODE_SOME_ERROR_OCCURED = -2;
+
+    public static final int DELAY_TIME_IN_MILLIS = 500;
 }
