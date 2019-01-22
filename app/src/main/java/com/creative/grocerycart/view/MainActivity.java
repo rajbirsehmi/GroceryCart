@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
     private String itemName;
     private int swipedIndex = -1;
 
-    private ItemTouchHelper.SimpleCallback swipeToRemoveGestureCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+    private ItemTouchHelper.SimpleCallback swipeToRemoveGestureCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return true;
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
