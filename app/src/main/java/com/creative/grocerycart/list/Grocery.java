@@ -43,4 +43,13 @@ public class Grocery {
     public static int getSize() {
         return list.size();
     }
+
+    public static void moveToLast(int indexToMove) {
+        GroceryItem itemToMove = new GroceryItem();
+        itemToMove.setItemId(list.get(indexToMove).getItemId());
+        itemToMove.setItemName(list.get(indexToMove).getItemName());
+        itemToMove.setChecked(list.get(indexToMove).isChecked());
+        list.remove(indexToMove);
+        list.add(itemToMove);
+    }
 }
