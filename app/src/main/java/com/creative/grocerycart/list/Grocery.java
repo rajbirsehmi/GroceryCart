@@ -56,4 +56,8 @@ public class Grocery {
     public static int getLastIndex() {
         return list.size() - 1;
     }
+
+    public static void replaceItem(GroceryItem item, int index) {
+        list.set(index, item);
+    }
 }
