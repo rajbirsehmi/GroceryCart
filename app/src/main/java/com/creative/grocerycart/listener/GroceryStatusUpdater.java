@@ -2,7 +2,6 @@ package com.creative.grocerycart.listener;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 
@@ -32,7 +31,7 @@ public class GroceryStatusUpdater implements View.OnClickListener {
                 mutatedItem.setItemId(item.getItemId());
                 mutatedItem.setItemName(item.getItemName());
                 mutatedItem.setChecked(item.isChecked());
-                Log.d("clicked", "doInBackground: " + mutatedItem.getItemName() + " -- " + mutatedItem.getItemId() + " -- " + mutatedItem.isChecked() + " -- " + position);
+                Grocery.replaceItem(item, position);
                 return QueryOrganiser.updateStatus(mutatedItem);
             }
 
@@ -40,6 +39,9 @@ public class GroceryStatusUpdater implements View.OnClickListener {
             protected void onPostExecute(Integer integer) {
                 super.onPostExecute(integer);
                 Intent intentUpdateStatusNotifyMainList = new Intent("update_status");
+                if (Grocery.getItem(position).isChecked()) {
+                    intentUpdateStatusNotifyMainList.putExtra("checked", true);
+                }
                 intentUpdateStatusNotifyMainList.putExtra("position", position);
                 LocalBroadcastManager.getInstance(view.getContext()).sendBroadcast(intentUpdateStatusNotifyMainList);
             }
