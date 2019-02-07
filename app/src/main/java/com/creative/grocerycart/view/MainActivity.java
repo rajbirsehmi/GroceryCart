@@ -24,7 +24,6 @@ import com.creative.grocerycart.postprocessing.PostProcessing;
 import com.creative.grocerycart.presenter.GroceryItemAdder;
 import com.creative.grocerycart.presenter.GroceryItemRemover;
 import com.creative.grocerycart.presenter.GroceryListLoader;
-import com.creative.grocerycart.utils.Constants;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
@@ -72,6 +71,17 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
                 if (position == -1)
                     return;
                 groceryAdapter.notifyItemChanged(position);
+                if (!intent.getBooleanExtra("checked", false)) {
+                    return;
+                }
+                Grocery.moveToLast(position);
+                groceryAdapter.notifyItemMoved(position, Grocery.getLastIndex());
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        groceryAdapter.notifyDataSetChanged();
+                    }
+                }, 300);
             }
         }
     };
