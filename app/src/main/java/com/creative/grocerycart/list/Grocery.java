@@ -52,4 +52,8 @@ public class Grocery {
         list.remove(indexToMove);
         list.add(itemToMove);
     }
+
+    public static int getLastIndex() {
+        return list.size() - 1;
+    }
 }
