@@ -53,8 +53,21 @@ public class Grocery {
         list.add(itemToMove);
     }
 
+    public static void moveToTop(int indexToMove) {
+        GroceryItem itemToMove = new GroceryItem();
+        itemToMove.setItemId(list.get(indexToMove).getItemId());
+        itemToMove.setItemName(list.get(indexToMove).getItemName());
+        itemToMove.setChecked(list.get(indexToMove).isChecked());
+        list.remove(indexToMove);
+        list.add(getFirstIndex(), itemToMove);
+    }
+
     public static int getLastIndex() {
         return list.size() - 1;
+    }
+
+    public static int getFirstIndex() {
+        return 0;
     }
 
     public static void replaceItem(GroceryItem item, int index) {
