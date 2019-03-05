@@ -13,6 +13,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.creative.grocerycart.R;
 import com.creative.grocerycart.adapter.GroceryAdapter;
 import com.creative.grocerycart.database.database.GroceryDatabase;
@@ -25,15 +34,6 @@ import com.creative.grocerycart.presenter.GroceryItemAdder;
 import com.creative.grocerycart.presenter.GroceryItemRemover;
 import com.creative.grocerycart.presenter.GroceryListLoader;
 import com.google.android.material.snackbar.Snackbar;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity implements GroceryListLoader, GroceryItemAdder, GroceryItemRemover {
 
@@ -71,11 +71,13 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
                 if (position == -1)
                     return;
                 groceryAdapter.notifyItemChanged(position);
-                if (!intent.getBooleanExtra("checked", false)) {
-                    return;
+                if (intent.getBooleanExtra("checked", false)) {
+                    Grocery.moveToLast(position);
+                    groceryAdapter.notifyItemMoved(position, Grocery.getLastIndex());
+                } else {
+                    Grocery.moveToTop(position);
+                    groceryAdapter.notifyItemMoved(position, Grocery.getFirstIndex());
                 }
-                Grocery.moveToLast(position);
-                groceryAdapter.notifyItemMoved(position, Grocery.getLastIndex());
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
