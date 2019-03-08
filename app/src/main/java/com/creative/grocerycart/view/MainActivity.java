@@ -33,6 +33,7 @@ import com.creative.grocerycart.postprocessing.PostProcessing;
 import com.creative.grocerycart.presenter.GroceryItemAdder;
 import com.creative.grocerycart.presenter.GroceryItemRemover;
 import com.creative.grocerycart.presenter.GroceryListLoader;
+import com.creative.grocerycart.utils.Constants;
 import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements GroceryListLoader, GroceryItemAdder, GroceryItemRemover {
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
 
     private String itemName;
     private int swipedIndex = -1;
+
+    private boolean exitFlag;
 
     private ItemTouchHelper.SimpleCallback swipeToRemoveGestureCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
@@ -78,12 +81,7 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
                     Grocery.moveToTop(position);
                     groceryAdapter.notifyItemMoved(position, Grocery.getFirstIndex());
                 }
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        groceryAdapter.notifyDataSetChanged();
-                    }
-                }, 300);
+                PostProcessing.handleDataPositions(groceryAdapter);
             }
         }
     };
@@ -132,14 +130,32 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
     }
 
     @Override
+    public void onBackPressed() {
+        if (exitFlag) {
+            finish();
+        }
+        exitFlag = true;
+        Toast.makeText(this, getResources().getString(R.string.exit_toast_text), Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                exitFlag = false;
+            }
+        }, Constants.DELAY_TIME_EXIT_FLAG_RESET);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        if (id == R.id.mi_exit) {
+            finish();
+        }
         return super.onOptionsItemSelected(item);
     }
 
