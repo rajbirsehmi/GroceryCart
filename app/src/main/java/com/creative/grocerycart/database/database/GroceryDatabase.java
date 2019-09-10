@@ -9,7 +9,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {GroceryItem.class}, version = 1)
+@Database(entities = {GroceryItem.class}, version = 1, exportSchema = false)
 public abstract class GroceryDatabase extends RoomDatabase {
 
     private static GroceryDatabase instance;

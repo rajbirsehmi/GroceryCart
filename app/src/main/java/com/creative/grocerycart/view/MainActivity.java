@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
 
     private RecyclerView rvGroceryList;
     private Dialog dialogAddItem;
+    private EditText etItemName;
+    private Button btnAddItem;
 
     private String itemName;
     private int swipedIndex = -1;
@@ -104,16 +107,22 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
             dialogAddItem = new Dialog(this);
             dialogAddItem.setContentView(R.layout.layout_item_add_dialog);
             dialogAddItem.setCancelable(false);
-            EditText etItemName = dialogAddItem.findViewById(R.id.et_item_name);
-            dialogAddItem.findViewById(R.id.btn_save_item).setOnClickListener((viewButton) -> {
+            etItemName = dialogAddItem.findViewById(R.id.et_item_name);
+
+            //  for adding the data item by clicking the button
+            btnAddItem = dialogAddItem.findViewById(R.id.btn_save_item);
+            btnAddItem.setOnClickListener((viewButton) -> {
                 itemName = etItemName.getText().toString();
                 groceryItemAdder.addItem();
             });
+
+            //  for adding data item by pressing enter.
             etItemName.setOnEditorActionListener((editText, actionId, keyEvent) -> {
                 itemName = etItemName.getText().toString();
                 groceryItemAdder.addItem();
                 return false;
             });
+
             dialogAddItem.findViewById(R.id.btn_dismiss).setOnClickListener((viewButton) -> {
                 dialogAddItem.dismiss();
             });
@@ -181,10 +190,39 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
     }
 
     @Override
-    public void renderNewItem() {
+    public void renderNewItems() {
         groceryAdapter.notifyItemInserted(0);
         dialogAddItem.dismiss();
         PostProcessing.handleDataPositions(groceryAdapter);
+    }
+
+    @Override
+    public void renderNewItemAtMainThread() {
+        runOnUiThread(() -> {
+            groceryAdapter.notifyItemInserted(0);
+        });
+    }
+
+    @Override
+    public void validateChangesToList() {
+        etItemName.setText(Constants.EMPTY_TEXT);
+        PostProcessing.handleDataPositions(groceryAdapter);
+    }
+
+    @Override
+    public void disableButtonAndUpdateText() {
+        runOnUiThread(() -> {
+            btnAddItem.setText(getResources().getString(R.string.label_adding_item));
+            btnAddItem.setEnabled(false);
+        });
+    }
+
+    @Override
+    public void enableButtonAndUpdateText() {
+        runOnUiThread(() -> {
+            btnAddItem.setEnabled(true);
+            btnAddItem.setText(getResources().getString(R.string.add_item));
+        });
     }
 
     @Override

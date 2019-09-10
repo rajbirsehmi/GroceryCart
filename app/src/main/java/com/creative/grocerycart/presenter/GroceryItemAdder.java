@@ -7,5 +7,14 @@ public interface GroceryItemAdder {
 
     void showToast(String message);
 
-    void renderNewItem();
+    @Deprecated
+    void renderNewItems();
+
+    void renderNewItemAtMainThread();
+
+    void validateChangesToList();
+
+    void disableButtonAndUpdateText();
+
+    void enableButtonAndUpdateText();
 }

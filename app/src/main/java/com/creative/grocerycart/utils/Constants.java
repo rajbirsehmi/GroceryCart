@@ -8,4 +8,5 @@ public class Constants {
 
     public static final int DELAY_TIME_IN_MILLIS = 300;
     public static final int DELAY_TIME_EXIT_FLAG_RESET = 1000;
+    public static final String EMPTY_TEXT = "";
 }
