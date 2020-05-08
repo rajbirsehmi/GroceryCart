@@ -33,7 +33,6 @@ public class GroceryItemRemoverImpl {
             @Override
             protected void onPostExecute(Integer result) {
                 super.onPostExecute(result);
-                Log.d("remove", "onPostExecute: " + result);
                 if (result == 0)
                     groceryItemRemover.setError("Some Error Occured While Removing Item...");
                 if (result == 1)
