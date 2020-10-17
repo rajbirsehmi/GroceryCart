@@ -49,7 +49,7 @@ public class GroceryItemAdderImpl {
                     //  will investigate further for better
                     //  solution
                     try {
-                        Thread.sleep(200);
+                        Thread.sleep(Constants.DELAY_TIME_MAIN_UI_RENDER);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                         return Constants.ERROR_CODE_SOME_ERROR_OCCURED;
@@ -62,8 +62,10 @@ public class GroceryItemAdderImpl {
             @Override
             protected void onPostExecute(Integer result) {
                 super.onPostExecute(result);
-                if (result == Constants.ERROR_CODE_MISSING_ITEM_NAME)
+                if (result == Constants.ERROR_CODE_MISSING_ITEM_NAME) {
                     groceryItemAdder.setItemMissingError("Item Name is Missing...");
+                    groceryItemAdder.enableButtonAndUpdateText();
+                }
                 if (result == Constants.ERROR_CODE_SOME_ERROR_OCCURED)
                     groceryItemAdder.showToast("Some Error Occured While Adding Item...");
                 if (result == Constants.SUCCESS_CODE)
