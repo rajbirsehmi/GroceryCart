@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
         groceryItemRemover = new GroceryItemRemoverImpl(this);
 
         findViewById(R.id.fab_add_item).setOnClickListener((view) -> {
-            dialogAddItem = new Dialog(this);
+            dialogAddItem = new Dialog(this, R.style.ThemeOverlay_MaterialComponents_Dialog);
             dialogAddItem.setContentView(R.layout.layout_item_add_dialog);
             dialogAddItem.setCancelable(false);
             etItemName = dialogAddItem.findViewById(R.id.et_item_name);
@@ -153,20 +153,20 @@ public class MainActivity extends AppCompatActivity implements GroceryListLoader
         }, Constants.DELAY_TIME_EXIT_FLAG_RESET);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.mi_exit) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        no need to put menu
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.mi_exit) {
+//            finish();
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void attachAdapter(GroceryAdapter groceryAdapter) {
