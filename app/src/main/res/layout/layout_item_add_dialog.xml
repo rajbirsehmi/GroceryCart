@@ -3,54 +3,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:layout_margin="15dp"
         android:text="@string/dialog_title_item_add"
         android:textColor="@android:color/black"
         android:textSize="@dimen/text_size_dialog_header"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/et_item_name"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outerlayout_et_item_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="15dp"
-        android:singleLine="true"
-        android:layout_marginRight="25dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
         android:hint="@string/hint_text_add_item_name"
-        android:imeOptions="actionDone"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/text_size_item_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:boxCornerRadiusBottomEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
+        app:endIconMode="clear_text"
+        app:hintTextAppearance="@style/TextLabel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        app:startIconDrawable="@drawable/icon_add_list">
 
-    <Button
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save_item"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
         android:text="@string/add_item"
+        android:textSize="16sp"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/icon_ok"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_item_name" />
+        app:layout_constraintTop_toBottomOf="@+id/outerlayout_et_item_name" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_dismiss"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
         android:text="@string/dismiss"
+        app:cornerRadius="16dp"
+        android:textSize="16sp"
+        app:icon="@drawable/icon_dismiss"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_item_name" />
+        app:layout_constraintTop_toBottomOf="@+id/outerlayout_et_item_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
